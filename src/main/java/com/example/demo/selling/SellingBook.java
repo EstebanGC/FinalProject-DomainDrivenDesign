@@ -20,7 +20,7 @@ public class SellingBook extends AggregateEvent<SellingBookId> {
 
     public SellingBook(SellingBookId sellingBookId, BookStore bookStore) {
         super(sellingBookId);
-        appendChange(new SellingBookCreated(bookStore)).apply();
+        appendChange(new SellingBookCreated(sellingBookId, bookStore)).apply();
     }
 
     private SellingBook(SellingBookId sellingBookIdId) {
@@ -99,4 +99,6 @@ public class SellingBook extends AggregateEvent<SellingBookId> {
     public Set<Client> getClients() {
         return clients;
     }
+
+    public Set<Selling> getSellings() {return sellings; }
 }

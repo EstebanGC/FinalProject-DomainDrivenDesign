@@ -3,20 +3,21 @@ package com.example.demo.purchases.events;
 import co.com.sofka.domain.generic.DomainEvent;
 import com.example.demo.purchases.values.Price;
 import com.example.demo.purchases.values.PurchaseId;
+import com.example.demo.purchases.values.PurchasedBookId;
 
 public class PriceCreated extends DomainEvent {
 
-    private final PurchaseId purchaseId;
+    private final PurchasedBookId purchasedBookId;
     private final Price price;
 
-    public PriceCreated(PurchaseId purchaseId, Price price){
+    public PriceCreated(PurchasedBookId purchasedBookId, Price price){
         super("sofka.price.pricecreated");
-        this.purchaseId = purchaseId;
+        this.purchasedBookId = purchasedBookId;
         this.price = price;
     }
 
-    public PurchaseId getPurchaseId(){
-        return purchaseId;
+    public PurchasedBookId getPurchasedBookId(){
+        return purchasedBookId;
     }
 
     public Price getPrice(){

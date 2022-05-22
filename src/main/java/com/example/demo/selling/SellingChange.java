@@ -45,7 +45,7 @@ public class SellingChange extends EventChange {
 
         apply((BookNameUpdated event)-> {
             var selling = new Selling(event.getSellingId());
-            selling.updateName(event.getName());
+            selling.updateBookName(event.getName());
         });
 
         apply((CategoryCreated event)->{
