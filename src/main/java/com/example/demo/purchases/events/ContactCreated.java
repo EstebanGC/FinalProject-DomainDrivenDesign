@@ -16,7 +16,7 @@ public class ContactCreated extends DomainEvent {
         this.contact = contact;
     }
 
-    public ProviderId providerId(){ return providerId;}
+    public ProviderId getProviderId(){ return providerId;}
 
     public Contact getContact() {
         return contact;

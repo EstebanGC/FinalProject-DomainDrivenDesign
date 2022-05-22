@@ -22,6 +22,8 @@ public class Purchase extends Entity<PurchaseId> {
         super(purchaseId);
     }
 
+
+
     public void updateTotalPrice(TotalPrice totalPrice){
         this.totalPrice = Objects.requireNonNull(totalPrice);
     }
@@ -30,3 +32,4 @@ public class Purchase extends Entity<PurchaseId> {
         this.numberOfBooks = Objects.requireNonNull(numberOfBooks);
     }
 }
+

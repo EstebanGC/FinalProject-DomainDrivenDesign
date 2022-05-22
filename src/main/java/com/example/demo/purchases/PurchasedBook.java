@@ -14,6 +14,7 @@ public class PurchasedBook extends Entity<PurchasedBookId> {
     public PurchasedBook(PurchasedBookId purchasedBookId, Category category, Name name, Price price){
         super(purchasedBookId);
         this.category =category;
+        this.name= name;
         this.price = price;
     }
 
@@ -29,6 +30,10 @@ public class PurchasedBook extends Entity<PurchasedBookId> {
         this.category = Objects.requireNonNull(category);
     }
 
+    public void updateBookName(Name name){
+        this.name = Objects.requireNonNull(name);
+    }
+
     public Category getCategory(){
         return category;
     }
@@ -37,7 +42,7 @@ public class PurchasedBook extends Entity<PurchasedBookId> {
         return price;
     }
 
-    public Name updateName(Name name){
-        return name;
-    }
+    public Name getName() { return name;}
+
+
 }
