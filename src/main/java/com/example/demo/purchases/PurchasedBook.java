@@ -37,7 +37,7 @@ public class PurchasedBook extends Entity<PurchasedBookId> {
         return price;
     }
 
-    public void updateName(Name name){
+    public Name updateName(Name name){
         return name;
     }
 }

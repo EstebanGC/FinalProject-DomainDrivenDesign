@@ -14,7 +14,7 @@ public class Provider extends Entity<ProviderId> {
     public Provider(ProviderId providerId, Name name) {
         super(providerId);
         this.providerId = providerId;
-        this.name= name;
+        this.name = name;
     }
 
     public Provider(ProviderId providerId){

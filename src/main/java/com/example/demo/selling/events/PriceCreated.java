@@ -1,7 +1,7 @@
 package com.example.demo.selling.events;
 
 import co.com.sofka.domain.generic.DomainEvent;
-import com.example.demo.selling.values.BookId;
+import com.example.demo.selling.values.SellingId;
 import com.example.demo.selling.values.Price;
 import com.example.demo.selling.values.SellingId;
 

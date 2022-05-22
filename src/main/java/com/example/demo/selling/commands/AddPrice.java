@@ -7,7 +7,7 @@ public class AddPrice {
     private SellingId sellingId;
     private final Price price;
 
-    public AddPrice(Price price){
+    public AddPrice(SellingId sellingId,Price price){
         this.price = price;
     }
 

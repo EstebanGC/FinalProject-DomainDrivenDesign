@@ -18,8 +18,8 @@ public class SellingBook extends AggregateEvent<SellingBookId> {
     protected Set<Client> clients;
     protected Set<Selling> sellings;
 
-    public SellingBook(SellingBookId sellingBookIdd, BookStore bookStore) {
-        super(sellingBookIdd);
+    public SellingBook(SellingBookId sellingBookId, BookStore bookStore) {
+        super(sellingBookId);
         appendChange(new SellingBookCreated(bookStore)).apply();
     }
 
