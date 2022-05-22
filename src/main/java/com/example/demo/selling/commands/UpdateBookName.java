@@ -11,7 +11,7 @@ public class UpdateBookName extends Command {
     private final SellingId sellingId;
     private final Name name;
 
-    public UpdateBookName(SellingBookId sellingBookId, SellingId sellingId,Name name){
+    public UpdateBookName(SellingBookId sellingBookId, SellingId sellingId, Name name){
         this.sellingBookId = sellingBookId;
         this.sellingId = sellingId;
         this.name = name;

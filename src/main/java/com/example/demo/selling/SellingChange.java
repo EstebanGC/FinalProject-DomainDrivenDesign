@@ -40,7 +40,7 @@ public class SellingChange extends EventChange {
         });
 
         apply((SellingCreated event)-> {
-            sellingBook.sellings.add(new Selling(event.getSellingBookId(), event.getCategory(), event.getName(), event.getPrice()));
+            sellingBook.sellings.add(new Selling(event.getSellingId(), event.getCategory(), event.getName(), event.getPrice()));
         });
 
         apply((BookNameUpdated event)-> {

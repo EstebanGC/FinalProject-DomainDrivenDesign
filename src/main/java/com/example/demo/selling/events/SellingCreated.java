@@ -5,13 +5,16 @@ import com.example.demo.selling.values.*;
 
 public class SellingCreated extends DomainEvent {
 
+
+    private final SellingBookId sellingBookId;
     private final SellingId sellingId;
     private final Name name;
     private final Price price;
     private final Category category;
 
-    public SellingCreated(SellingId sellingId, Name name, Price price, Category category){
+    public SellingCreated(SellingBookId sellingBookId, SellingId sellingId, Name name, Price price, Category category){
         super("sofka.selling.sellingcreated");
+        this.sellingBookId = sellingBookId;
         this.sellingId = sellingId;
         this.name = name;
         this.price = price;
@@ -19,7 +22,9 @@ public class SellingCreated extends DomainEvent {
     }
 
 
-    public SellingId getSellingBookId(){
+    public SellingBookId getSellingBookId() { return sellingBookId; }
+
+    public SellingId getSellingId(){
         return sellingId;
     }
 

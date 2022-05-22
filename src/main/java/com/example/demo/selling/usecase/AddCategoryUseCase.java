@@ -10,8 +10,8 @@ public class AddCategoryUseCase extends UseCase<RequestCommand<AddCategory>, Res
     @Override
     public void executeUseCase(RequestCommand<AddCategory> addCategoryRequestCommand) {
         var command = addCategoryRequestCommand.getCommand();
-        var sellingBook = SellingBook.from(command.sellingBookId, retrieveEvents(command.sellingBookId().value()));
-        sellingBook.addCategory(command.disResId(), command.disabled(), command.payments());
-        emit().onResponse(new ResponseEvents(sellings.getUncommittedChanges()));
+        var sellingBook = SellingBook.from(command.getSellingBookId(), repository().getEventsBy(command.getSellingBookId().value()));
+        sellingBook.addCategory(command.getSellingBookId(), command.getSellingId(), command.getCategory());
+        emit().onResponse(new ResponseEvents(sellingBook.getUncommittedChanges()));
     }
 }

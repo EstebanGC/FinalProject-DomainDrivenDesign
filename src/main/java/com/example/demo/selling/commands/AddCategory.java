@@ -23,4 +23,5 @@ public class AddCategory extends Command {
     public Category getCategory(){
         return category;
     }
+
 }

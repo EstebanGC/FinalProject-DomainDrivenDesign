@@ -4,6 +4,7 @@ import co.com.sofka.domain.generic.Command;
 import com.example.demo.selling.values.ClientId;
 import com.example.demo.selling.values.Name;
 import com.example.demo.selling.values.SellingBookId;
+import com.example.demo.selling.values.SellingId;
 
 public class AddClient extends Command {
 

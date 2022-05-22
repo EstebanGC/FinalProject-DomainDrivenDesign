@@ -5,8 +5,6 @@ import co.com.sofka.domain.generic.DomainEvent;
 import com.example.demo.selling.events.*;
 import com.example.demo.selling.values.*;
 
-import java.awt.print.Book;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -29,63 +27,74 @@ public class SellingBook extends AggregateEvent<SellingBookId> {
     }
 
     public static SellingBook from(SellingBookId sellingBookId, List<DomainEvent> events){
-        return null; //complete
+        var sellingBook = new SellingBook(sellingBookId);
+        events.forEach(sellingBook::applyEvent);
+        return sellingBook;
     }
 
-    public void addSelling(SellingId sellingId, Name name, Category category, Price price){
+    public void addSelling(SellingBookId sellingBookId, SellingId sellingId, Name name, Category category, Price price){
+        Objects.requireNonNull(sellingBookId);
         Objects.requireNonNull(name);
         Objects.requireNonNull(sellingId);
         Objects.requireNonNull(category);
         Objects.requireNonNull(price);
-        appendChange(new SellingCreated(sellingId, name, price, category)).apply();
+        appendChange(new SellingCreated(sellingBookId, sellingId, name, price, category)).apply();
     }
 
-    public void addClient(ClientId clientId, Name name){
+    public void addClient(SellingBookId sellingBookId, ClientId clientId, Name name){
+        Objects.requireNonNull(sellingBookId);
         Objects.requireNonNull(clientId);
         Objects.requireNonNull(name);
-        appendChange(new ClientCreated(clientId, name)).apply();
+        appendChange(new ClientCreated(sellingBookId, clientId, name)).apply();
     }
 
-    public void addSeller(SellerId sellerId, Name name, SoldBooks soldBooks) {
+    public void addSeller(SellingBookId sellingBookId,SellerId sellerId, Name name, SoldBooks soldBooks) {
+        Objects.requireNonNull(sellingBookId);
         Objects.requireNonNull(sellerId);
         Objects.requireNonNull(name);
         Objects.requireNonNull(soldBooks);
-        appendChange(new SellerCreated(sellerId, name, soldBooks));
+        appendChange(new SellerCreated(sellingBookId, sellerId, name, soldBooks));
     }
 
-    public void updateClientName(ClientId clientId, Name name) {
+    public void updateClientName(SellingBookId sellingBookId,ClientId clientId, Name name) {
+        Objects.requireNonNull(sellingBookId);
+        Objects.requireNonNull(clientId);
         Objects.requireNonNull(name);
-        appendChange(new ClientNameUpdated(clientId, name)).apply();
+        appendChange(new ClientNameUpdated(sellingBookId,clientId, name)).apply();
     }
 
-    public void updateSellerName(SellerId sellerId, Name name) {
+    public void updateSellerName(SellingBookId sellingBookId, SellerId sellerId, Name name) {
+        Objects.requireNonNull(sellingBookId);
         Objects.requireNonNull(sellerId);
         Objects.requireNonNull(name);
-        appendChange(new SellerNameUpdated(sellerId, name)).apply();
+        appendChange(new SellerNameUpdated(sellingBookId, sellerId, name)).apply();
     }
 
-    public void updateBookName(SellingId sellingId, Name name) {
+    public void updateBookName(SellingBookId sellingBookId, SellingId sellingId, Name name) {
+        Objects.requireNonNull(sellingBookId);
         Objects.requireNonNull(sellingId);
         Objects.requireNonNull(name);
-        appendChange(new BookNameUpdated(sellingId, name)).apply();
+        appendChange(new BookNameUpdated(sellingBookId, sellingId, name)).apply();
     }
 
-    public void addCategory(SellingId sellingId, Category category) {
+    public void addCategory(SellingBookId sellingBookId, SellingId sellingId, Category category) {
+        Objects.requireNonNull(sellingBookId);
         Objects.requireNonNull(sellingId);
         Objects.requireNonNull(category);
-        appendChange(new CategoryCreated(sellingId, category)).apply();
+        appendChange(new CategoryCreated(sellingBookId, sellingId, category)).apply();
     }
 
-    public void addPrice(SellingId sellingId, Price price) {
+    public void addPrice(SellingBookId sellingBookId, SellingId sellingId, Price price) {
         Objects.requireNonNull(sellingId);
         Objects.requireNonNull(price);
-        appendChange(new PriceCreated(sellingId, price)).apply();
+        appendChange(new PriceCreated(sellingBookId,sellingId, price)).apply();
     }
 
-    public void updateSoldBooks(SellerId sellerId, SoldBooks soldBooks){
+    public void updateSoldBooks(SellingBookId sellingBookId, SellerId sellerId, SoldBooks soldBooks){
+        Objects.requireNonNull(sellingBookId);
         Objects.requireNonNull(soldBooks);
         Objects.requireNonNull(sellerId);
-        appendChange(new SoldBooksUpdated(sellerId, soldBooks)).apply();
+        appendChange(new SoldBooksUpdated(sellingBookId,sellerId, soldBooks)).apply();
     }
 
     public BookStore getBookStore() {

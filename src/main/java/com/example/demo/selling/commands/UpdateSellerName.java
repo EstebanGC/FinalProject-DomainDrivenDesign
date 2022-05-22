@@ -9,7 +9,7 @@ public class UpdateSellerName {
     private final SellerId sellerId;
     private final Name name;
 
-    public UpdateSellerName(SellingBookId sellingBookId, SellerId sellerId, Name name) {
+    public UpdateSellerName(SellingBookId sellingBookId,  SellerId sellerId, Name name) {
         this.sellingBookId = sellingBookId;
         this.sellerId = sellerId;
         this.name=name;
