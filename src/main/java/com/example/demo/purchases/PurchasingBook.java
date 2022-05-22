@@ -5,7 +5,7 @@ import com.example.demo.purchases.values.BookStore;
 import com.example.demo.purchases.values.PurchasingBookId;
 
 public class PurchasingBook extends AggregateEvent<PurchasingBookId> {
-    public PurchasingBook(PurchasingBookId purchasingBookIdId, BookStore bookStore) {
-        super(purchasingBookIdId);
+    public PurchasingBook(PurchasingBookId purchasingBookId, BookStore bookStore) {
+        super(purchasingBookId);
     }
 }
