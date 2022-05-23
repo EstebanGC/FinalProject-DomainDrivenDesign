@@ -3,9 +3,9 @@ package com.example.demo.selling.usecase;
 import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
+import co.com.sofka.business.support.TriggeredEvent;
 import co.com.sofka.domain.generic.DomainEvent;
-import com.example.demo.selling.commands.AddPrice;
-import com.example.demo.selling.events.PriceCreated;
+import com.example.demo.selling.events.CategoryCreated;
 import com.example.demo.selling.events.SellingBookCreated;
 import com.example.demo.selling.values.*;
 import org.junit.jupiter.api.Assertions;
@@ -18,34 +18,37 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
-public class AddPriceUseCaseTest {
+class CategoryCreatedUseCaseTest {
+
     @InjectMocks
-    private AddPriceUseCase useCase;
+    private CategoryCreatedUseCase useCase;
     @Mock
     private DomainEventRepository repository;
     @Test
-    void AddPriceHappyPass() {
+    void CategoryCreatedHappyPass() {
 
         SellingBookId sellingBookId = SellingBookId.of("xxxxx");
         SellingId sellingId = SellingId.of("yyyyy");
-        Price price = new Price(50000);
-        var command = new AddPrice(sellingBookId, sellingId, price);
+        Category category = new Category("alberto");
 
-        Mockito.when(repository.getEventsBy("xxxxx")).thenReturn(History());
+        var event = new CategoryCreated(sellingBookId, sellingId, category);
+
+        Mockito.when(repository.getEventsBy(event.getSellingBookId().value())).thenReturn(List.of(event));
         useCase.addRepository(repository);
 
         var events = UseCaseHandler.getInstance()
-                .setIdentifyExecutor(command.getSellingBookId().value())
-                .syncExecutor(useCase, new RequestCommand<>(command))
+                .setIdentifyExecutor(event.getSellingBookId().value())
+                .syncExecutor(useCase, new TriggeredEvent<>(event))
                 .orElseThrow().getDomainEvents();
 
-        var event = (PriceCreated)events.get(0);
-        Assertions.assertEquals(command.getSellingBookId().value(), event.aggregateRootId());
-        Assertions.assertEquals(command.getSellingId().value(), event.getSellingId().value());
-        Assertions.assertEquals(command.getPrice().value(), event.getPrice().value());
+        var eventResponse = (CategoryCreated)events.get(0);
+        Assertions.assertEquals(event.getSellingBookId().value(), eventResponse.aggregateRootId());
+        Assertions.assertEquals(event.getSellingId().value(), eventResponse.getSellingId().value());
+        Assertions.assertEquals(event.getCategory().value(), eventResponse.getCategory().value());
 
-        Mockito.verify(repository).getEventsBy(command.getSellingBookId().value());
+        Mockito.verify(repository).getEventsBy(event.getSellingBookId().value());
     }
 
     private List<DomainEvent> History() {
@@ -54,5 +57,4 @@ public class AddPriceUseCaseTest {
         var event = new SellingBookCreated(sellingBookId, bookStore);
         return List.of(event);
     }
-
 }

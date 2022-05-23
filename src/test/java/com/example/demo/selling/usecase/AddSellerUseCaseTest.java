@@ -10,12 +10,15 @@ import com.example.demo.selling.events.SellingBookCreated;
 import com.example.demo.selling.values.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+@ExtendWith(MockitoExtension.class)
 public class AddSellerUseCaseTest {
 
     @InjectMocks
@@ -40,10 +43,10 @@ public class AddSellerUseCaseTest {
                 .orElseThrow().getDomainEvents();
 
         var event = (SellerCreated)events.get(0);
-        Assertions.assertEquals("xxxxx", event.aggregateRootId());
-        Assertions.assertEquals("yyyyy", event.getSellerId().value());
-        Assertions.assertEquals("alberto", event.getName().value());
-        Assertions.assertEquals(20, event.getSoldBooks().value());
+        Assertions.assertEquals(command.getSellingBookId().value(), event.aggregateRootId());
+        Assertions.assertEquals(command.getSellerId().value(), event.getSellerId().value());
+        Assertions.assertEquals(command.getName().value(), event.getName().value());
+        Assertions.assertEquals(command.getSoldBooks().value(), event.getSoldBooks().value());
 
         Mockito.verify(repository).getEventsBy(command.getSellingBookId().value());
     }

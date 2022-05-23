@@ -6,9 +6,10 @@ import com.example.demo.selling.values.SellingBookId;
 import com.example.demo.selling.values.SellingId;
 
 public class CategoryCreated extends DomainEvent {
-    private final Category category;
+
     private final SellingBookId sellingBookId;
     private final SellingId sellingId;
+    private final Category category;
 
     public CategoryCreated(SellingBookId sellingBookId, SellingId sellingId, Category category){
         super("sofka.category.categorycreated");
