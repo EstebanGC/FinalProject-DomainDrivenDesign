@@ -48,7 +48,7 @@ public class SellingBook extends AggregateEvent<SellingBookId> {
         appendChange(new ClientCreated(sellingBookId, clientId, name)).apply();
     }
 
-    public void addSeller(SellingBookId sellingBookId,SellerId sellerId, Name name, SoldBooks soldBooks) {
+    public void addSeller(SellingBookId sellingBookId, SellerId sellerId, Name name, SoldBooks soldBooks) {
         Objects.requireNonNull(sellingBookId);
         Objects.requireNonNull(sellerId);
         Objects.requireNonNull(name);

@@ -1,10 +1,11 @@
 package com.example.demo.selling.commands;
 
+import co.com.sofka.domain.generic.Command;
 import com.example.demo.selling.values.Price;
 import com.example.demo.selling.values.SellingBookId;
 import com.example.demo.selling.values.SellingId;
 
-public class AddPrice {
+public class AddPrice extends Command {
     private final SellingBookId sellingBookId;
     private final SellingId sellingId;
     private final Price price;

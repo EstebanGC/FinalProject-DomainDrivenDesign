@@ -5,11 +5,11 @@ import co.com.sofka.domain.generic.ValueObject;
 import java.util.Objects;
 
 public class SoldBooks implements ValueObject<Integer> {
-    private final SoldBooks value;
+    private final Integer value;
 
-    public SoldBooks(SoldBooks value) {
+    public SoldBooks(Integer value) {
         this.value = Objects.requireNonNull(value);
-        if (value()<0) {
+        if (this.value<0) {
             throw new IllegalArgumentException("The number of books can not be negative");
         }
     }
