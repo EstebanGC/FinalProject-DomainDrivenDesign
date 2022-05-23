@@ -1,11 +1,12 @@
 package com.example.demo.purchases.commands;
 
+import co.com.sofka.domain.generic.Command;
 import com.example.demo.purchases.values.Contact;
 import com.example.demo.purchases.values.ProviderId;
 import com.example.demo.purchases.values.PurchasingBookId;
-import com.example.demo.selling.values.Name;
 
-public class AddContact {
+
+public class AddContact extends Command {
     private final PurchasingBookId purchasingBookId;
     private final ProviderId providerId;
     private final Contact contact;

@@ -8,8 +8,8 @@ public class Price implements ValueObject<Integer> {
     private final Integer value;
     public Price(Integer value) {
         this.value = Objects.requireNonNull(value);
-        if (this.value<=0){
-            throw new IllegalArgumentException("Price is empty");
+        if (this.value<0){
+            throw new IllegalArgumentException("Price can not be negative");
         }
     }
 

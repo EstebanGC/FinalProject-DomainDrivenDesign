@@ -1,10 +1,11 @@
 package com.example.demo.purchases.commands;
 
+import co.com.sofka.domain.generic.Command;
 import com.example.demo.purchases.values.PurchasedBookId;
 import com.example.demo.purchases.values.PurchasingBookId;
-import com.example.demo.selling.values.Price;
+import com.example.demo.purchases.values.Price;
 
-public class AddPrice {
+public class AddPrice extends Command {
     private final PurchasingBookId purchasingBookId;
     private final PurchasedBookId purchasedBookId;
     private final Price price;
@@ -19,7 +20,7 @@ public class AddPrice {
     public PurchasedBookId getPurchasedBookId(){
         return purchasedBookId;
     }
-    public Price getPrice(){
+    public com.example.demo.purchases.values.Price getPrice(){
         return price;
     }
 }

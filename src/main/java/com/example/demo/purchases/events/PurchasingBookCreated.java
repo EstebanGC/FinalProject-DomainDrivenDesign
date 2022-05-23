@@ -6,7 +6,6 @@ import com.example.demo.purchases.values.PurchasingBookId;
 
 public class PurchasingBookCreated extends DomainEvent {
 
-
     private final PurchasingBookId purchasingBookId;
     private final BookStore bookStore;
 

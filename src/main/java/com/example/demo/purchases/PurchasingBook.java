@@ -4,7 +4,9 @@ import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 import com.example.demo.purchases.events.*;
 import com.example.demo.purchases.values.*;
+import com.example.demo.purchases.values.BookStore;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -16,7 +18,7 @@ public class PurchasingBook extends AggregateEvent<PurchasingBookId> {
     protected Set<Provider> providers;
     protected Set<Purchase> purchases;
 
-    public PurchasingBook(PurchasingBookId purchasingBookId, BookStore bookStore) {
+    public PurchasingBook(PurchasingBookId purchasingBookId,BookStore bookStore) {
         super(purchasingBookId);
         appendChange(new PurchasingBookCreated(purchasingBookId, bookStore)).apply();
     }
@@ -32,47 +34,70 @@ public class PurchasingBook extends AggregateEvent<PurchasingBookId> {
         return purchasingBook;
     }
 
-    public void addCategory(PurchasedBookId purchasedBookId, Category category){
+    public void addCategory(PurchasingBookId purchasingBookId, PurchasedBookId purchasedBookId, Category category){
+        Objects.requireNonNull(purchasingBookId);
         Objects.requireNonNull(purchasedBookId);
         Objects.requireNonNull(category);
-        appendChange(new CategoryCreated(purchasedBookId, category)).apply();
+        appendChange(new CategoryCreated(purchasingBookId, purchasedBookId, category)).apply();
     }
 
-    public void addPrice(PurchasedBookId purchasedBookId, Price price){
+    public void addPrice(PurchasingBookId purchasingBookId, PurchasedBookId purchasedBookId, Price price){
+        Objects.requireNonNull(purchasingBookId);
         Objects.requireNonNull(purchasedBookId);
         Objects.requireNonNull(price);
-        appendChange(new PriceCreated(purchasedBookId, price)).apply();
+        appendChange(new PriceCreated(purchasingBookId, purchasedBookId, price)).apply();
     }
 
-    public void updatePurchasedBookName(PurchasedBookId purchasedBookId, Name name){
+    public void updatePurchasedBookName(PurchasingBookId purchasingBookId, PurchasedBookId purchasedBookId, Name name){
+        Objects.requireNonNull(purchasingBookId);
         Objects.requireNonNull(purchasedBookId);
         Objects.requireNonNull(name);
-        appendChange(new PurchasedBookNameUpdated(purchasedBookId, name)).apply();
+        appendChange(new PurchasedBookNameUpdated(purchasingBookId, purchasedBookId, name)).apply();
     }
 
-    public void updateProviderName(ProviderId providerId, Name name){
+    public void addProvider(PurchasingBookId purchasingBookId, ProviderId providerId, Name name, Contact contact){
+        Objects.requireNonNull(purchasingBookId);
         Objects.requireNonNull(providerId);
         Objects.requireNonNull(name);
-        appendChange(new ProviderNameUpdated(providerId, name)).apply();
+        Objects.requireNonNull(contact);
+        appendChange(new ProviderCreated(purchasingBookId, providerId, name, contact)).apply();
     }
 
-    public void addContact(ProviderId providerId, Contact contact) {
+    public void updateProviderName(PurchasingBookId purchasingBookId, ProviderId providerId, Name name){
+        Objects.requireNonNull(purchasingBookId);
+        Objects.requireNonNull(providerId);
+        Objects.requireNonNull(name);
+        appendChange(new ProviderNameUpdated(purchasingBookId, providerId, name)).apply();
+    }
+
+    public void addContact(PurchasingBookId purchasingBookId, ProviderId providerId, Contact contact) {
+        Objects.requireNonNull(purchasingBookId);
         Objects.requireNonNull(providerId);
         Objects.requireNonNull(contact);
-        appendChange(new ContactCreated(providerId, contact)).apply();
+        appendChange(new ContactCreated(purchasingBookId, providerId, contact)).apply();
     }
 
-    public void updateNumberOfBooks(PurchaseId purchaseId, NumberOfBooks numberOfBooks) {
-        Objects.requireNonNull(purchaseId);
-        Objects.requireNonNull(numberOfBooks);
-        appendChange(new NumberOfBooksUpdated(purchaseId, numberOfBooks)).apply();
-    }
-
-    public void updateTotalPrice(PurchaseId purchaseId, NumberOfBooks numberOfBooks, TotalPrice totalPrice) {
+    public void addPurchase(PurchasingBookId purchasingBookId, PurchaseId purchaseId, NumberOfBooks numberOfBooks, TotalPrice totalPrice){
+        Objects.requireNonNull(purchasingBookId);
         Objects.requireNonNull(purchaseId);
         Objects.requireNonNull(numberOfBooks);
         Objects.requireNonNull(totalPrice);
-        appendChange(new TotalPriceUpdated(purchaseId, numberOfBooks, totalPrice)).apply();
+        appendChange(new PurchaseCreated(purchasingBookId, purchaseId, numberOfBooks, totalPrice)).apply();
+    }
+
+    public void updateNumberOfBooks(PurchasingBookId purchasingBookId, PurchaseId purchaseId, NumberOfBooks numberOfBooks) {
+        Objects.requireNonNull(purchasingBookId);
+        Objects.requireNonNull(purchaseId);
+        Objects.requireNonNull(numberOfBooks);
+        appendChange(new NumberOfBooksUpdated(purchasingBookId, purchaseId, numberOfBooks)).apply();
+    }
+
+    public void updateTotalPrice(PurchasingBookId purchasingBookId, PurchaseId purchaseId, NumberOfBooks numberOfBooks, TotalPrice totalPrice) {
+        Objects.requireNonNull(purchasingBookId);
+        Objects.requireNonNull(purchaseId);
+        Objects.requireNonNull(numberOfBooks);
+        Objects.requireNonNull(totalPrice);
+        appendChange(new TotalPriceUpdated(purchasingBookId, purchaseId, numberOfBooks, totalPrice)).apply();
 
     }
 
